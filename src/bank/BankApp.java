@@ -26,12 +26,28 @@ public class BankApp {
 
         if (deposit >= minDeposit) {
 
+
+            char accountTier;
+            double rate;
+
+            if (deposit < 1000) {
+                accountTier = 'B';
+                rate = 3.0;
+            } else if (deposit < 5000) {
+                accountTier = 'S';
+                rate = 5.0;
+            } else if (deposit < 10000) {
+                accountTier = 'G';
+                rate = 7.5;
+            } else {
+                accountTier = 'P';
+                rate = 10.0;
+            }
             if (deposit >= bonusThreshold) {
                 deposit += welcomeBonus;
                 System.out.println("[BONUS APPLIED] VIP status unlocked! $" + welcomeBonus + " bonus added to your deposit.");
             }
-            System.out.print("What's your annual interest rate on the account ");
-            double rate = scanner.nextDouble();
+
             double income = deposit * (rate / 100);
             double balanceInOneYear = deposit + income;
             System.out.println("--- Account Summary---");
@@ -40,11 +56,12 @@ public class BankApp {
             System.out.println("Annual rate: " + rate);
             System.out.println("Expected Annual Profit: " + income);
             System.out.println("Projected Balance (1 Year): " + balanceInOneYear);
+            System.out.println("Tier: " + accountTier);
 
         } else {
             double shortAmount = minDeposit - deposit;
             System.out.println("[ERROR] Account opening rejected. Minimum deposit is $" + minDeposit + "."
-                    + "Yo are $" + shortAmount + " short of the required amount.");
+                    + "You are $" + shortAmount + " short of the required amount.");
         }
 
 

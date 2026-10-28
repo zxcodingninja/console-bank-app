@@ -26,9 +26,9 @@ public class BankApp {
 
         if (deposit >= minDeposit) {
 
-
             char accountTier;
             double rate;
+            double monthlyFee = 0;
 
             if (deposit < 1000) {
                 accountTier = 'B';
@@ -48,7 +48,29 @@ public class BankApp {
                 System.out.println("[BONUS APPLIED] VIP status unlocked! $" + welcomeBonus + " bonus added to your deposit.");
             }
 
-            double income = deposit * (rate / 100);
+
+            System.out.println("Choose account type (SAVINGS / CHECKING / STUDENT)");
+            String accountType = scanner.next().toUpperCase();
+
+
+            switch (accountType) {
+
+                case "SAVINGS":
+                    break;
+                case "CHECKING":
+                    rate = 0.0;
+                    monthlyFee = 5.0;
+                    break;
+                case "STUDENT":
+                    rate += 1.0;
+                    break;
+                default:
+                    System.out.println("Invalid value. Please choose one from the above");
+                    scanner.close();
+                    return;
+            }
+
+            double income = deposit * (rate / 100) - (12 * monthlyFee);
             double balanceInOneYear = deposit + income;
             System.out.println("--- Account Summary---");
             System.out.println("Account Holder: " + firstName + " " + lastName);
@@ -57,10 +79,12 @@ public class BankApp {
             System.out.println("Expected Annual Profit: " + income);
             System.out.println("Projected Balance (1 Year): " + balanceInOneYear);
             System.out.println("Tier: " + accountTier);
+            System.out.println("Account Type: " + accountType);
+            System.out.println("Monthly Fee: $" + monthlyFee);
 
         } else {
             double shortAmount = minDeposit - deposit;
-            System.out.println("[ERROR] Account opening rejected. Minimum deposit is $" + minDeposit + "."
+            System.out.println("[ERROR] Account opening rejected. Minimum deposit is $" + minDeposit + ". "
                     + "You are $" + shortAmount + " short of the required amount.");
         }
 

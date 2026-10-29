@@ -27,6 +27,7 @@ public class BankApp {
         if (deposit >= minDeposit) {
 
             char accountTier;
+
             double rate;
             double monthlyFee = 0;
 
@@ -47,6 +48,14 @@ public class BankApp {
                 deposit += welcomeBonus;
                 System.out.println("[BONUS APPLIED] VIP status unlocked! $" + welcomeBonus + " bonus added to your deposit.");
             }
+
+            String accountTierName = switch (accountTier) {
+                case 'B' -> "Bronze";
+                case 'S' -> "Silver"
+                case 'G' -> "Gold";
+                case 'P' -> "Platinum";
+                default -> "Your Account Tier is not set yet. Please contact our support";
+            };
 
 
             System.out.println("Choose account type (SAVINGS / CHECKING / STUDENT)");
@@ -78,7 +87,7 @@ public class BankApp {
             System.out.println("Annual rate: " + rate);
             System.out.println("Expected Annual Profit: " + income);
             System.out.println("Projected Balance (1 Year): " + balanceInOneYear);
-            System.out.println("Tier: " + accountTier);
+            System.out.println("Tier: " + accountTierName + " (" + accountTier + ")");
             System.out.println("Account Type: " + accountType);
             System.out.println("Monthly Fee: $" + monthlyFee);
 

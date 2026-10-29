@@ -51,7 +51,7 @@ public class BankApp {
 
             String accountTierName = switch (accountTier) {
                 case 'B' -> "Bronze";
-                case 'S' -> "Silver"
+                case 'S' -> "Silver";
                 case 'G' -> "Gold";
                 case 'P' -> "Platinum";
                 default -> "Your Account Tier is not set yet. Please contact our support";

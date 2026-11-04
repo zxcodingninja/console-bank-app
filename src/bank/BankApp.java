@@ -9,7 +9,7 @@ public class BankApp {
         final double bonusThreshold = 5000.0;
         final double welcomeBonus = 250.0;
         final double minDeposit = 100.0;
-
+        double rate;
 
         System.out.println("=== Java Bank: Account Opening ===");
         Scanner scanner = new Scanner(System.in);
@@ -29,7 +29,7 @@ public class BankApp {
 
             char accountTier;
 
-            double rate;
+
             double monthlyFee = 0;
 
             if (deposit < 1000) {
@@ -111,8 +111,9 @@ public class BankApp {
             System.out.println("1. Check Balance");
             System.out.println("2. Deposit Money");
             System.out.println("3. Withdraw Money");
-            System.out.println("4. Exit");
-            System.out.println("Choose an option (1-4): ");
+            System.out.println("4. Investment Projections (Compound Interest)");
+            System.out.println("5. Exit");
+            System.out.println("Choose an option (1-5): ");
             action = scanner.nextInt();
 
             switch (action) {
@@ -136,14 +137,24 @@ public class BankApp {
                     }
                     break;
                 case 4:
+                    System.out.println("Enter number of years to project: ");
+                    int years = scanner.nextInt();
+                    double projectedBalance = currentBalance;
+                    for(int i = 0; i < years; i++ ) {
+                        double income = projectedBalance * (rate / 100);
+                        projectedBalance += income;
+                        System.out.println("Year " + (i + 1) + ": $" + projectedBalance);
+                    }
+                    break;
+                case 5:
                     System.out.println("Thank you for banking with us. Goodbye!");
                     break;
                 default:
-                    System.out.println("[ERROR] Invalid option! Please choose between 1 and 4.");
+                    System.out.println("[ERROR] Invalid option! Please choose between 1 and 5.");
                     break;
             }
 
-        } while (action != 4);
+        } while (action != 5);
 
 
         scanner.close();

@@ -10,6 +10,7 @@ public class BankApp {
         final double welcomeBonus = 250.0;
         final double minDeposit = 100.0;
 
+
         System.out.println("=== Java Bank: Account Opening ===");
         Scanner scanner = new Scanner(System.in);
         scanner.useLocale(Locale.US);
@@ -91,11 +92,58 @@ public class BankApp {
             System.out.println("Account Type: " + accountType);
             System.out.println("Monthly Fee: $" + monthlyFee);
 
+
         } else {
             double shortAmount = minDeposit - deposit;
             System.out.println("[ERROR] Account opening rejected. Minimum deposit is $" + minDeposit + ". "
                     + "You are $" + shortAmount + " short of the required amount.");
+            scanner.close();
+            return;
         }
+
+        int action;
+        double currentBalance = deposit;
+
+
+        do {
+
+            System.out.println("--- Operations Menu ---");
+            System.out.println("1. Check Balance");
+            System.out.println("2. Deposit Money");
+            System.out.println("3. Withdraw Money");
+            System.out.println("4. Exit");
+            System.out.println("Choose an option (1-4): ");
+            action = scanner.nextInt();
+
+            switch (action) {
+                case 1:
+                    System.out.println("Current Balance: $" + currentBalance);
+                    break;
+                case 2:
+                    System.out.println("Enter deposit amount: ");
+                    double depositAmount = scanner.nextDouble();
+                    currentBalance += depositAmount;
+                    System.out.println("Your current Balance is: $" + currentBalance);
+                    break;
+                case 3:
+                    System.out.println("Enter withdrawal amount: ");
+                    double withdrawalAmount = scanner.nextDouble();
+                    if (withdrawalAmount > currentBalance) {
+                        System.out.println("[ERROR] Insufficient funds! Current balance: $" + currentBalance);
+                    } else {
+                        currentBalance -= withdrawalAmount;
+                        System.out.println("Your current balance is: $" + currentBalance);
+                    }
+                    break;
+                case 4:
+                    System.out.println("Thank you for banking with us. Goodbye!");
+                    break;
+                default:
+                    System.out.println("[ERROR] Invalid option! Please choose between 1 and 4.");
+                    break;
+            }
+
+        } while (action != 4);
 
 
         scanner.close();

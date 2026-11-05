@@ -124,14 +124,25 @@ public class BankApp {
                     calculateInvestmentProjection(projectedBalance, rate, years);
                     break;
                 case 5:
+                    System.out.println("Enter your credit score (300-850)");
+                    int score = scanner.nextInt();
+                    if (isEligibleForLoan(currentBalance, score)) {
+                        currentBalance += 5000.0;
+                        System.out.println("[APPROVED] Congratulations! Loan of $5000.0 has been credited to your account.");
+                        System.out.println("Your current balance: $" + currentBalance);
+                    } else {
+                        System.out.println("[DECLINED] Loan application denied. Balance must be >= $2,000 and credit score >= 650");
+                    }
+                    break;
+                case 6:
                     System.out.println("Thank you for banking with us. Goodbye!");
                     break;
                 default:
-                    System.out.println("[ERROR] Invalid option! Please choose between 1 and 5.");
+                    System.out.println("[ERROR] Invalid option! Please choose between 1 and 6.");
                     break;
             }
 
-        } while (action != 5);
+        } while (action != 6);
 
 
         scanner.close();
@@ -143,8 +154,9 @@ public class BankApp {
         System.out.println("2. Deposit Money");
         System.out.println("3. Withdraw Money");
         System.out.println("4. Investment Projections (Compound Interest)");
-        System.out.println("5. Exit");
-        System.out.println("Choose an option (1-5): ");
+        System.out.println("5. Apply for Loan");
+        System.out.println("6. Exit");
+        System.out.println("Choose an option (1-6): ");
 
     }
 
@@ -178,5 +190,9 @@ public class BankApp {
         return currentBalance;
     }
 
+
+    public static boolean isEligibleForLoan(double currentBalance, int creditScore) {
+        return currentBalance >= 2000.0 && creditScore >= 650;
+    }
 
 }

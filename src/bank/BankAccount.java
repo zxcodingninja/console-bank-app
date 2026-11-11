@@ -41,6 +41,16 @@ public class BankAccount {
 
     }
 
+    public double calculateAnnualProfit() {
+        return this.balance * (this.rate / 100) - (12 * this.monthlyFee);
+    }
+
+
+
+    public double calculateBalanceInOneYear() {
+        return this.balance + calculateAnnualProfit();
+    }
+
 
     public String getLastName() {
         return lastName;

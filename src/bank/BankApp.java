@@ -26,13 +26,12 @@ public class BankApp {
         System.out.println("What's your initial deposit? ");
         double deposit = scanner.nextDouble();
 
+        String accountType;
+        char accountTier;
+        double monthlyFee = 0;
 
         if (deposit >= minDeposit) {
 
-            char accountTier;
-
-
-            double monthlyFee = 0;
 
             if (deposit < 1000) {
                 accountTier = 'B';
@@ -62,7 +61,7 @@ public class BankApp {
 
 
             System.out.println("Choose account type (SAVINGS / CHECKING / STUDENT)");
-            String accountType = scanner.next().toUpperCase();
+            accountType = scanner.next().toUpperCase();
 
 
             switch (accountType) {
@@ -96,7 +95,7 @@ public class BankApp {
         }
 
         int action;
-        double currentBalance = deposit;
+        BankAccount account = new BankAccount(firstName, lastName, deposit, accountType, rate, monthlyFee, accountTier);
 
 
         do {
@@ -106,32 +105,31 @@ public class BankApp {
 
             switch (action) {
                 case 1:
-                    System.out.println("Current Balance: $" + currentBalance);
+                    System.out.println("Current Balance: $" + account.getBalance());
                     break;
                 case 2:
                     System.out.println("Enter deposit amount: ");
                     double depositAmount = scanner.nextDouble();
-                    currentBalance += depositAmount;
-                    System.out.println("Your current Balance is: $" + currentBalance);
+                    account.deposit(depositAmount);
+                    System.out.println("Your current Balance is: $" + account.getBalance());
                     break;
                 case 3:
                     System.out.println("Enter withdrawal amount: ");
                     double withdrawalAmount = scanner.nextDouble();
-                    currentBalance = processWithdrawal(currentBalance, withdrawalAmount);
+                    account.withdraw(withdrawalAmount);
                     break;
                 case 4:
                     System.out.println("Enter number of years to project: ");
                     int years = scanner.nextInt();
-                    double projectedBalance = currentBalance;
-                    calculateInvestmentProjection(projectedBalance, rate, years);
+                    calculateInvestmentProjection(account.getBalance(), account.getRate(), years);
                     break;
                 case 5:
                     System.out.println("Enter your credit score (300-850)");
                     int score = scanner.nextInt();
-                    if (isEligibleForLoan(currentBalance, score)) {
-                        currentBalance += 5000.0;
+                    if (isEligibleForLoan(account.getBalance(), score)) {
+                        account.deposit(5000.0);
                         System.out.println("[APPROVED] Congratulations! Loan of $5000.0 has been credited to your account.");
-                        System.out.println("Your current balance: $" + currentBalance);
+                        System.out.println("Your current balance: $" + account.getBalance());
                     } else {
                         System.out.println("[DECLINED] Loan application denied. Balance must be >= $2,000 and credit score >= 650");
                     }
@@ -180,16 +178,6 @@ public class BankApp {
             projectedBalance += income;
             System.out.println("Year " + (i + 1) + ": $" + projectedBalance);
         }
-    }
-
-    public static double processWithdrawal(double currentBalance, double withdrawalAmount) {
-        if (withdrawalAmount > currentBalance) {
-            System.out.println("[ERROR] Insufficient funds! Current balance: $" + currentBalance);
-        } else {
-            currentBalance -= withdrawalAmount;
-            System.out.println("Your current balance is: $" + currentBalance);
-        }
-        return currentBalance;
     }
 
 

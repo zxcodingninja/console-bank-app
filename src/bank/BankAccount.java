@@ -3,33 +3,43 @@ package bank;
 public class BankAccount {
 
 
-
     private String firstName;
     private String lastName;
     private double balance;
-    private double interestRate;
+    private double rate;
     private String accountType;
     private double monthlyFee;
-    private char tier;
+    private char accountTier;
+
+
+    public BankAccount(String firstName, String lastName, double initialBalance, String accountType, double rate, double monthlyFee, char accountTier) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.balance = initialBalance;
+        this.accountType = accountType;
+        this.rate = rate;
+        this.monthlyFee = monthlyFee;
+        this.accountTier = accountTier;
+
+    }
 
     public void deposit(double amount) {
         this.balance += amount;
 
-        System.out.println("Deposited: $" + amount + ". New balance: $"+ this.balance);
+        System.out.println("Deposited: $" + amount + ". New balance: $" + this.balance);
     }
 
     public boolean withdraw(double amount) {
-        if(amount > this.balance) {
+        if (amount > this.balance) {
             System.out.println("[ERROR] Insufficient funds!");
             return false;
-        } else  {
+        } else {
             this.balance -= amount;
             System.out.println("Withdrew: $" + amount);
             return true;
         }
 
     }
-
 
 
     public String getLastName() {
@@ -72,19 +82,19 @@ public class BankAccount {
         this.monthlyFee = monthlyFee;
     }
 
-    public char getTier() {
-        return tier;
+    public char getAccountTier() {
+        return accountTier;
     }
 
-    public void setTier(char tier) {
-        this.tier = tier;
+    public void setAccountTier(char tier) {
+        this.accountTier = tier;
     }
 
-    public double getInterestRate() {
-        return interestRate;
+    public double getRate() {
+        return rate;
     }
 
-    public void setInterestRate(double interestRate) {
-        this.interestRate = interestRate;
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 }

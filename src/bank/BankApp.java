@@ -30,6 +30,9 @@ public class BankApp {
         char accountTier;
         double monthlyFee = 0;
 
+
+        BankAccount account;
+
         if (deposit >= minDeposit) {
 
 
@@ -80,9 +83,10 @@ public class BankApp {
                     scanner.close();
                     return;
             }
+            account = new BankAccount(firstName, lastName, deposit, accountType, rate, monthlyFee, accountTier);
 
-            double income = deposit * (rate / 100) - (12 * monthlyFee);
-            double balanceInOneYear = deposit + income;
+            double income = account.calculateAnnualProfit();
+            double balanceInOneYear = account.calculateBalanceInOneYear();
 
             printAccountSummary(firstName, lastName, deposit, rate, income, balanceInOneYear, accountTierName, accountTier, accountType, monthlyFee);
 
@@ -95,7 +99,6 @@ public class BankApp {
         }
 
         int action;
-        BankAccount account = new BankAccount(firstName, lastName, deposit, accountType, rate, monthlyFee, accountTier);
 
 
         do {

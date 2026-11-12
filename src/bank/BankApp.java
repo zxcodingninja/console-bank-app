@@ -125,11 +125,16 @@ public class BankApp {
                     calculateInvestmentProjection(account.getBalance(), account.getRate(), years);
                     break;
                 case 5:
+                    System.out.println("Enter requested loan amount: ");
+                    double requestedLoanAmount = scanner.nextDouble();
+
                     System.out.println("Enter your credit score (300-850)");
                     int score = scanner.nextInt();
-                    if (isEligibleForLoan(account.getBalance(), score)) {
-                        account.deposit(5000.0);
-                        System.out.println("[APPROVED] Congratulations! Loan of $5000.0 has been credited to your account.");
+
+                    LoanApplication application = new LoanApplication(requestedLoanAmount, score);
+                    if (isEligibleForLoan(account, application)) {
+                        account.deposit(application.requestedAmount());
+                        System.out.println("[APPROVED] Congratulations! Loan of $ " + requestedLoanAmount + " has been credited to your account.");
                         System.out.println("Your current balance: $" + account.getBalance());
                     } else {
                         System.out.println("[DECLINED] Loan application denied. Balance must be >= $2,000 and credit score >= 650");
@@ -182,8 +187,8 @@ public class BankApp {
     }
 
 
-    public static boolean isEligibleForLoan(double currentBalance, int creditScore) {
-        return currentBalance >= 2000.0 && creditScore >= 650;
+    public static boolean isEligibleForLoan(BankAccount account, LoanApplication application) {
+        return account.getBalance() >= 2000.0 && application.creditScore() >= 650 && application.requestedAmount() <= (account.getBalance() * 2);
     }
 
 }

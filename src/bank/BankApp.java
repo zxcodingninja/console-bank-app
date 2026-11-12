@@ -85,10 +85,8 @@ public class BankApp {
             }
             account = new BankAccount(firstName, lastName, deposit, accountType, rate, monthlyFee, accountTier);
 
-            double income = account.calculateAnnualProfit();
-            double balanceInOneYear = account.calculateBalanceInOneYear();
 
-            printAccountSummary(firstName, lastName, deposit, rate, income, balanceInOneYear, accountTierName, accountTier, accountType, monthlyFee);
+            printAccountSummary(account, accountTierName);
 
         } else {
             double shortAmount = minDeposit - deposit;
@@ -163,16 +161,16 @@ public class BankApp {
 
     }
 
-    public static void printAccountSummary(String firstName, String lastName, double deposit, double rate, double income, double balanceInOneYear, String accountTierName, char accountTier, String accountType, double monthlyFee) {
+    public static void printAccountSummary(BankAccount account, String accountTierName) {
         System.out.println("--- Account Summary---");
-        System.out.println("Account Holder: " + firstName + " " + lastName);
-        System.out.println("Initial Deposit: " + deposit);
-        System.out.println("Annual rate: " + rate);
-        System.out.println("Expected Annual Profit: " + income);
-        System.out.println("Projected Balance (1 Year): " + balanceInOneYear);
-        System.out.println("Tier: " + accountTierName + " (" + accountTier + ")");
-        System.out.println("Account Type: " + accountType);
-        System.out.println("Monthly Fee: $" + monthlyFee);
+        System.out.println("Account Holder: " + account.getFirstName() + " " + account.getLastName());
+        System.out.println("Initial Deposit: " + account.getBalance());
+        System.out.println("Annual rate: " + account.getRate());
+        System.out.println("Expected Annual Profit: " + account.calculateAnnualProfit());
+        System.out.println("Projected Balance (1 Year): " + account.calculateBalanceInOneYear());
+        System.out.println("Tier: " + accountTierName + " (" + account.getAccountTier() + ")");
+        System.out.println("Account Type: " + account.getAccountType());
+        System.out.println("Monthly Fee: $" + account.getMonthlyFee());
     }
 
     public static void calculateInvestmentProjection(double projectedBalance, double rate, int years) {

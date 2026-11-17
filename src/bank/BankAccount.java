@@ -15,14 +15,20 @@ public class BankAccount {
 
 
     public BankAccount(String firstName, String lastName, double initialBalance, String accountType, double rate, double monthlyFee, char accountTier) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.firstName = formatName(firstName);
+        this.lastName = formatName(lastName);
         this.balance = initialBalance;
         this.accountType = accountType;
         this.rate = rate;
         this.monthlyFee = monthlyFee;
         this.accountTier = accountTier;
 
+    }
+
+    private String formatName(String name) {
+        String trimmedName = name.trim().toLowerCase();
+        if(trimmedName.isEmpty()) return "";
+        return trimmedName.substring(0, 1).toUpperCase() + trimmedName.substring(1);
     }
 
     public void deposit(double amount) {
@@ -52,7 +58,7 @@ public class BankAccount {
         } else {
             System.out.println("--- Recent Transactions ---");
             for (int i = 0; i < transactionCount; i++) {
-                System.out.println(transactionHistory[i]);
+                System.out.println(String.format("%d. $%.2f", i+1, transactionHistory[i]));
             }
         }
     }

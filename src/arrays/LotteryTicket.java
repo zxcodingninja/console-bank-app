@@ -40,9 +40,15 @@ public class LotteryTicket {
 
     public static void printTicket(int[] array) {
         Arrays.sort(array);
-        for(int number : array) {
+        for (int number : array) {
             System.out.print(number + " / ");
         }
+        // Another way to go through array length
+//        for(int i=0; i<array.length; i++) {
+//
+//            System.out.println(array[i] + " / ");
+//
+//        }
     }
 
 

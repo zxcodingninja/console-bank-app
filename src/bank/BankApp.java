@@ -140,15 +140,19 @@ public class BankApp {
                         System.out.println("[DECLINED] Loan application denied. Balance must be >= $2,000 and credit score >= 650");
                     }
                     break;
+
                 case 6:
-                    System.out.println("Thank you for banking with us. Goodbye!");
+                    account.printTransactionHistory();
                     break;
+                case 7:
+                System.out.println("Thank you for banking with us. Goodbye!");
+                break;
                 default:
-                    System.out.println("[ERROR] Invalid option! Please choose between 1 and 6.");
+                    System.out.println("[ERROR] Invalid option! Please choose between 1 and 7.");
                     break;
             }
 
-        } while (action != 6);
+        } while (action != 7);
 
 
         scanner.close();
@@ -161,8 +165,9 @@ public class BankApp {
         System.out.println("3. Withdraw Money");
         System.out.println("4. Investment Projections (Compound Interest)");
         System.out.println("5. Apply for Loan");
-        System.out.println("6. Exit");
-        System.out.println("Choose an option (1-6): ");
+        System.out.println("6. Recent Transactions");
+        System.out.println("7. Exit");
+        System.out.println("Choose an option (1-7): ");
 
     }
 

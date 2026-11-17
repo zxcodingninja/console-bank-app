@@ -10,6 +10,8 @@ public class BankAccount {
     private String accountType;
     private double monthlyFee;
     private char accountTier;
+    private final double[] transactionHistory = new double[5];
+    private int transactionCount = 0;
 
 
     public BankAccount(String firstName, String lastName, double initialBalance, String accountType, double rate, double monthlyFee, char accountTier) {
@@ -27,6 +29,7 @@ public class BankAccount {
         this.balance += amount;
 
         System.out.println("Deposited: $" + amount + ". New balance: $" + this.balance);
+        recordTransaction(+amount);
     }
 
     public boolean withdraw(double amount) {
@@ -36,15 +39,34 @@ public class BankAccount {
         } else {
             this.balance -= amount;
             System.out.println("Withdrew: $" + amount);
+            recordTransaction(-amount);
             return true;
         }
 
     }
 
+    public void printTransactionHistory() {
+        if (transactionCount == 0) {
+            System.out.println("No transactions yet.");
+
+        } else {
+            System.out.println("--- Recent Transactions ---");
+            for (int i = 0; i < transactionCount; i++) {
+                System.out.println(transactionHistory[i]);
+            }
+        }
+    }
+
+    private void recordTransaction(double amount) {
+        if (transactionCount < transactionHistory.length) {
+            transactionHistory[transactionCount] = amount;
+            transactionCount++;
+        }
+    }
+
     public double calculateAnnualProfit() {
         return this.balance * (this.rate / 100) - (12 * this.monthlyFee);
     }
-
 
 
     public double calculateBalanceInOneYear() {

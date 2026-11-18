@@ -1,5 +1,7 @@
 package bank;
 
+import org.w3c.dom.ls.LSOutput;
+
 public class BankAccount {
 
 
@@ -27,7 +29,7 @@ public class BankAccount {
 
     private String formatName(String name) {
         String trimmedName = name.trim().toLowerCase();
-        if(trimmedName.isEmpty()) return "";
+        if (trimmedName.isEmpty()) return "";
         return trimmedName.substring(0, 1).toUpperCase() + trimmedName.substring(1);
     }
 
@@ -57,8 +59,10 @@ public class BankAccount {
 
         } else {
             System.out.println("--- Recent Transactions ---");
-            for (int i = 0; i < transactionCount; i++) {
-                System.out.println(String.format("%d. $%.2f", i+1, transactionHistory[i]));
+            int operationNumber = 1;
+            for (int i = transactionCount - 1; i >= 0; i--) {
+                System.out.println(String.format("%d. $%.2f", operationNumber, transactionHistory[i]));
+                operationNumber++;
             }
         }
     }
@@ -68,6 +72,13 @@ public class BankAccount {
             transactionHistory[transactionCount] = amount;
             transactionCount++;
         }
+    }
+
+    public String getInitials() {
+
+        if (firstName != null && lastName != null && !firstName.isEmpty() && !lastName.isEmpty()) {
+            return String.format("%c.%c.", firstName.charAt(0), lastName.charAt(0));
+        } else return " ";
     }
 
     public double calculateAnnualProfit() {

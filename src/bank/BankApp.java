@@ -173,7 +173,7 @@ public class BankApp {
 
     public static void printAccountSummary(BankAccount account, String accountTierName) {
         System.out.println("--- Account Summary---");
-        System.out.println("Account Holder: " + account.getFirstName() + " " + account.getLastName());
+        System.out.println("Account Holder: " + account.getFirstName() + " " + account.getLastName() + " ("+ account.getInitials()+")");
         System.out.println("Initial Deposit: " + account.getBalance());
         System.out.println("Annual rate: " + account.getRate());
         System.out.println("Expected Annual Profit: " + account.calculateAnnualProfit());

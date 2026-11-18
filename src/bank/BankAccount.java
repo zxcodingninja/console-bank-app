@@ -37,7 +37,7 @@ public class BankAccount {
         this.balance += amount;
 
         System.out.println("Deposited: $" + amount + ". New balance: $" + this.balance);
-        recordTransaction(+amount);
+        recordTransaction(amount);
     }
 
     public boolean withdraw(double amount) {
@@ -58,12 +58,23 @@ public class BankAccount {
             System.out.println("No transactions yet.");
 
         } else {
-            System.out.println("--- Recent Transactions ---");
+            System.out.println(buildTransactionHistory());
+        }
+    }
+
+    public String buildTransactionHistory() {
+        if(transactionCount==0) {
+            return "No transactions yet";
+        }
+        else {
+            var modifedString = new StringBuilder();
+            modifedString.append("--- Recent Transactions ---\n");
             int operationNumber = 1;
             for (int i = transactionCount - 1; i >= 0; i--) {
-                System.out.println(String.format("%d. $%.2f", operationNumber, transactionHistory[i]));
+                modifedString.append(String.format("%d. $%.2f\n", operationNumber, transactionHistory[i]));
                 operationNumber++;
             }
+            return modifedString.toString();
         }
     }
 
